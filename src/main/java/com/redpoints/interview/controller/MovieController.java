@@ -72,7 +72,6 @@ public class MovieController {
     }
 
 
-
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteMovieById(@PathVariable("id") long id) {
         if (movieService.deleteMovieById(id)) {

@@ -10,27 +10,27 @@ import java.util.List;
 public final class MovieMapper {
 
 
-	public MovieEntity modelToEntity(Movie movie) {
-		MovieEntity movieEntity = new MovieEntity();
-		movieEntity.setId(movie.getId());
-		movieEntity.setTitle(movie.getTitle());
-		movieEntity.setDirector(movie.getDirector());
-		movieEntity.setYear(movie.getYear());
+    public MovieEntity modelToEntity(Movie movie) {
+        MovieEntity movieEntity = new MovieEntity();
+        movieEntity.setId(movie.getId());
+        movieEntity.setTitle(movie.getTitle());
+        movieEntity.setDirector(movie.getDirector());
+        movieEntity.setYear(movie.getYear());
 
-		return movieEntity;
-	}
+        return movieEntity;
+    }
 
-	public Movie entityToModel(MovieEntity movieEntity) {
-		Movie movie = new Movie();
-		movie.setId(movieEntity.getId());
-		movie.setTitle(movieEntity.getTitle());
-		movie.setDirector(movieEntity.getDirector());
-		movie.setYear(movieEntity.getYear());
+    public Movie entityToModel(MovieEntity movieEntity) {
+        Movie movie = new Movie();
+        movie.setId(movieEntity.getId());
+        movie.setTitle(movieEntity.getTitle());
+        movie.setDirector(movieEntity.getDirector());
+        movie.setYear(movieEntity.getYear());
 
-		return movie;
-	}
+        return movie;
+    }
 
-	public List<Movie> entitiesToModels(List<MovieEntity> movieEntities) {
-		return movieEntities.stream().map(this::entityToModel).toList();
-	}
+    public List<Movie> entitiesToModels(List<MovieEntity> movieEntities) {
+        return movieEntities.stream().map(this::entityToModel).toList();
+    }
 }
