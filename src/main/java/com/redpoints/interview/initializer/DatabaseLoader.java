@@ -3,9 +3,12 @@ package com.redpoints.interview.initializer;
 import com.redpoints.interview.service.data.MovieEntity;
 import com.redpoints.interview.repository.MovieRepository;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 @Component
+@ConditionalOnProperty(name = "app.db-loader.enabled", havingValue = "true", matchIfMissing = true)
+
 public class DatabaseLoader implements CommandLineRunner {
 
     private final MovieRepository repository;

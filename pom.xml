@@ -19,7 +19,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.10.1</junit.version>
-<!--        <spotify-dockerfile-maven-plugin.version>1.4.13</spotify-dockerfile-maven-plugin.version>-->
+        <!--        <spotify-dockerfile-maven-plugin.version>1.4.13</spotify-dockerfile-maven-plugin.version>-->
         <mockito-core.version>5.8.0</mockito-core.version>
     </properties>
 
@@ -68,6 +68,7 @@
             <scope>test</scope>
         </dependency>
 
+
     </dependencies>
 
     <build>
@@ -78,26 +79,26 @@
             </plugin>
 
             <!-- Spotify plugin to generate the image when running mvn package -->
-<!--            <plugin>-->
-<!--                <groupId>com.spotify</groupId>-->
-<!--                <artifactId>dockerfile-maven-plugin</artifactId>-->
-<!--                <version>${spotify-dockerfile-maven-plugin.version}</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>default</id>-->
-<!--                        <goals>-->
-<!--                            <goal>build</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--                <configuration>-->
-<!--                    <repository>${project.artifactId}</repository>-->
-<!--                    <tag>${project.version}</tag>-->
-<!--                    <buildArgs>-->
-<!--                        <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>-->
-<!--                    </buildArgs>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
+            <!--            <plugin>-->
+            <!--                <groupId>com.spotify</groupId>-->
+            <!--                <artifactId>dockerfile-maven-plugin</artifactId>-->
+            <!--                <version>${spotify-dockerfile-maven-plugin.version}</version>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <id>default</id>-->
+            <!--                        <goals>-->
+            <!--                            <goal>build</goal>-->
+            <!--                        </goals>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--                <configuration>-->
+            <!--                    <repository>${project.artifactId}</repository>-->
+            <!--                    <tag>${project.version}</tag>-->
+            <!--                    <buildArgs>-->
+            <!--                        <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>-->
+            <!--                    </buildArgs>-->
+            <!--                </configuration>-->
+            <!--            </plugin>-->
         </plugins>
     </build>
 

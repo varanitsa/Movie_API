@@ -34,7 +34,7 @@ class MovieServiceTest {
     }
 
     @Test
-    void testGetAllMovies() {
+    void GetAllMoviesTest() {
 
         List<MovieEntity> movies = new ArrayList<>();
         movies.add(new MovieEntity("Titanic", "James Cameron", 1997));
@@ -48,7 +48,7 @@ class MovieServiceTest {
     }
 
     @Test
-    void testGetMovieById() {
+    void GetMovieByIdTest() {
 
         Long movieId = 1L;
         MovieEntity movieEntity = new MovieEntity("Titanic", "James Cameron", 1997);
@@ -62,7 +62,7 @@ class MovieServiceTest {
     }
 
     @Test
-    void testGetMovieById_notFound() {
+    void GetMovieById_notFoundTest() {
 
         Long movieId = 1L;
 
@@ -74,7 +74,7 @@ class MovieServiceTest {
     }
 
     @Test
-    void testCreateMovie() {
+    void CreateMovieTest() {
 
         MovieEntity movieToCreate = new MovieEntity("Titanic", "James Cameron", 1997);
         MovieEntity createdMovie = new MovieEntity("Titanic", "James Cameron", 1997);
@@ -91,7 +91,7 @@ class MovieServiceTest {
 
 
     @Test
-    void testCreateMovieWithNegativeYear() {
+    void CreateMovieWithNegativeYearTest() {
         MovieEntity movieWithNegativeYear = new MovieEntity("Titanic", "James Cameron", -1997);
 
         assertThrows(IllegalArgumentException.class, () -> {
@@ -102,7 +102,7 @@ class MovieServiceTest {
     }
 
     @Test
-    void testCreateMovieWithNullData() {
+    void CreateMovieWithNullDataTest() {
         MovieEntity movieWithNullData = new MovieEntity(null, "James Cameron", 1997);
 
         assertThrows(IllegalArgumentException.class, () -> {
@@ -114,7 +114,7 @@ class MovieServiceTest {
 
 
     @Test
-    void testUpdateMovieById() {
+    void UpdateMovieByIdTest() {
 
         Long movieId = 1L;
         MovieEntity existingMovieEntity = new MovieEntity("Titanik", "James Cameron", 2020);
@@ -125,17 +125,17 @@ class MovieServiceTest {
 
         Optional<MovieEntity> result = movieService.updateMovieById(movieId, updatedMovieEntity);
 
-        assertTrue(result.isPresent(), "La película debería estar presente después de la actualización");
-        assertEquals(updatedMovieEntity.getTitle(), result.get().getTitle(), "El título debería ser actualizado");
-        assertEquals(updatedMovieEntity.getDirector(), result.get().getDirector(), "El director debería ser actualizado");
-        assertEquals(updatedMovieEntity.getYear(), result.get().getYear(), "El año debería ser actualizado");
+        assertTrue(result.isPresent(), "The movie should be present after the update.");
+        assertEquals(updatedMovieEntity.getTitle(), result.get().getTitle(), "The title should be updated");
+        assertEquals(updatedMovieEntity.getDirector(), result.get().getDirector(), "The director should be updated");
+        assertEquals(updatedMovieEntity.getYear(), result.get().getYear(), "The year should be updated");
 
         verify(repository, times(1)).findById(movieId);
         verify(repository, times(1)).save(existingMovieEntity);
     }
 
     @Test
-    void testUpdateMovieWithNullData() {
+    void UpdateMovieWithNullDataTest() {
         Long movieId = 1L;
         MovieEntity movieWithNullData = new MovieEntity(null, "Updated Director", 2000);
 
@@ -147,7 +147,7 @@ class MovieServiceTest {
     }
 
     @Test
-    void testUpdateMovieWithNegativeYear() {
+    void UpdateMovieWithNegativeYearTest() {
         Long movieId = 1L;
         MovieEntity movieWithNegativeYear = new MovieEntity("Updated Title", "Updated Director", -2000);
 
@@ -160,7 +160,7 @@ class MovieServiceTest {
 
 
     @Test
-    void testDeleteMovieById() {
+    void DeleteMovieByIdTest() {
         Long movieId = 1L;
         MovieEntity existingMovieEntity = new MovieEntity("Titanic", "James Cameron", 1997);
 
@@ -168,14 +168,14 @@ class MovieServiceTest {
 
         boolean result = movieService.deleteMovieById(movieId);
 
-        assertTrue(result, "La película debería existir y ser eliminada");
+        assertTrue(result, "The movie should exist and be deleted");
 
         verify(repository, times(1)).deleteById(movieId);
     }
 
 
     @Test
-    void testDeleteAllMovies() {
+    void DeleteAllMoviesTest() {
 
         movieService.deleteAllMovies();
         verify(repository, times(1)).deleteAll();

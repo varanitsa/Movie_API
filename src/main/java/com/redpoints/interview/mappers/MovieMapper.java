@@ -6,9 +6,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+
 @Component
 public final class MovieMapper {
-
 
     public MovieEntity modelToEntity(Movie movie) {
         MovieEntity movieEntity = new MovieEntity();
@@ -33,4 +33,11 @@ public final class MovieMapper {
     public List<Movie> entitiesToModels(List<MovieEntity> movieEntities) {
         return movieEntities.stream().map(this::entityToModel).toList();
     }
+
+
+    public List<MovieEntity> modelsToEntities(List<Movie> movies) {
+        return movies.stream().map(this::modelToEntity).toList();
+    }
+
+
 }

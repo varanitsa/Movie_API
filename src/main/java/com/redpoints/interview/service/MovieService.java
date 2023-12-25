@@ -12,7 +12,6 @@ public class MovieService {
 
     private final MovieRepository repository;
 
-
     public MovieService(MovieRepository repository) {
         this.repository = repository;
     }
@@ -28,24 +27,26 @@ public class MovieService {
     public MovieEntity createMovie(MovieEntity movieEntity) {
 
         if (movieEntity.getTitle() == null || movieEntity.getDirector() == null || movieEntity.getYear() == null) {
-            throw new IllegalArgumentException("Los campos title, director y year no pueden ser nulos");
+            throw new IllegalArgumentException("The fields title, director, and year cannot be null");
         }
 
         if (movieEntity.getYear() < 0) {
-            throw new IllegalArgumentException("El campo year no puede ser negativo");
+            throw new IllegalArgumentException("The field year cannot be negative");
         }
+
         return repository.save(movieEntity);
     }
 
     public Optional<MovieEntity> updateMovieById(Long id, MovieEntity updatedMovieEntity) {
 
         if (updatedMovieEntity.getTitle() == null || updatedMovieEntity.getDirector() == null || updatedMovieEntity.getYear() == null) {
-            throw new IllegalArgumentException("Los campos title, director y year no pueden ser nulos");
+            throw new IllegalArgumentException("The fields title, director, and year cannot be null");
         }
 
         if (updatedMovieEntity.getYear() < 0) {
-            throw new IllegalArgumentException("El campo year no puede ser negativo");
+            throw new IllegalArgumentException("The field year cannot be negative");
         }
+
         return repository.findById(id).map(existingMovieEntity -> {
             existingMovieEntity.setTitle(updatedMovieEntity.getTitle());
             existingMovieEntity.setDirector(updatedMovieEntity.getDirector());
@@ -67,6 +68,8 @@ public class MovieService {
     public void deleteAllMovies() {
         repository.deleteAll();
     }
+
+
 }
 
 
