@@ -4,6 +4,7 @@ import com.redpoints.interview.mappers.MovieMapper;
 import com.redpoints.interview.model.Movie;
 import com.redpoints.interview.service.MovieService;
 import com.redpoints.interview.service.data.MovieEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ public class MovieController {
     private final MovieService movieService;
     private final MovieMapper movieMapper;
 
+    @Autowired
     public MovieController(MovieService movieService, MovieMapper movieMapper) {
         this.movieService = movieService;
         this.movieMapper = movieMapper;
@@ -36,6 +38,7 @@ public class MovieController {
         return new ResponseEntity<>(movies, HttpStatus.OK);
     }
 
+
     @GetMapping("/{id}")
     public ResponseEntity<Movie> getMovieById(@PathVariable("id") Long id) {
         Optional<MovieEntity> movieEntity = movieService.getMovieById(id);
@@ -48,12 +51,16 @@ public class MovieController {
         }
     }
 
+
+
     @PostMapping
     public ResponseEntity<Movie> createMovie(@RequestBody Movie movie) {
-        MovieEntity movieEntity = movieMapper.modelToEntity(movie);
-        MovieEntity createdMovieEntity = movieService.createMovie(movieEntity);
-        Movie createdMovie = movieMapper.entityToModel(createdMovieEntity);
-        return new ResponseEntity<>(createdMovie, HttpStatus.CREATED);
+        return Optional.of(movie)
+                .map(movieMapper::modelToEntity)
+                .map(movieService::createMovie)
+                .map(movieMapper::entityToModel)
+                .map(createdMovie -> new ResponseEntity<>(createdMovie, HttpStatus.CREATED))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
 
@@ -86,7 +93,6 @@ public class MovieController {
     public ResponseEntity<HttpStatus> deleteAllMovies() {
         movieService.deleteAllMovies();
         return new ResponseEntity<>(HttpStatus.OK);
-
     }
 }
 
