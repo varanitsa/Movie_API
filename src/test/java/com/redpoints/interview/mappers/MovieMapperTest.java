@@ -18,7 +18,7 @@ public class MovieMapperTest {
     private MovieMapper movieMapper;
 
     @Test
-    public void testEntityToModel() {
+    public void entityToModelTest() {
 
         MovieEntity movieEntity = new MovieEntity("Titanic", "James Cameron", 1997);
 
@@ -32,7 +32,7 @@ public class MovieMapperTest {
     }
 
     @Test
-    public void testModelToEntity() {
+    public void modelToEntityTest() {
 
         Movie movie = new Movie("Titanic", "James Cameron", 1997);
 

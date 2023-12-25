@@ -34,7 +34,7 @@ class MovieServiceTest {
     }
 
     @Test
-    void GetAllMoviesTest() {
+    void getAllMoviesTest() {
 
         List<MovieEntity> movies = new ArrayList<>();
         movies.add(new MovieEntity("Titanic", "James Cameron", 1997));
@@ -48,7 +48,7 @@ class MovieServiceTest {
     }
 
     @Test
-    void GetMovieByIdTest() {
+    void getMovieByIdTest() {
 
         Long movieId = 1L;
         MovieEntity movieEntity = new MovieEntity("Titanic", "James Cameron", 1997);
@@ -62,7 +62,7 @@ class MovieServiceTest {
     }
 
     @Test
-    void GetMovieById_notFoundTest() {
+    void getMovieById_notFoundTest() {
 
         Long movieId = 1L;
 
@@ -74,7 +74,7 @@ class MovieServiceTest {
     }
 
     @Test
-    void CreateMovieTest() {
+    void createMovieTest() {
 
         MovieEntity movieToCreate = new MovieEntity("Titanic", "James Cameron", 1997);
         MovieEntity createdMovie = new MovieEntity("Titanic", "James Cameron", 1997);
@@ -91,7 +91,7 @@ class MovieServiceTest {
 
 
     @Test
-    void CreateMovieWithNegativeYearTest() {
+    void createMovieWithNegativeYearTest() {
         MovieEntity movieWithNegativeYear = new MovieEntity("Titanic", "James Cameron", -1997);
 
         assertThrows(IllegalArgumentException.class, () -> {
@@ -102,7 +102,7 @@ class MovieServiceTest {
     }
 
     @Test
-    void CreateMovieWithNullDataTest() {
+    void createMovieWithNullDataTest() {
         MovieEntity movieWithNullData = new MovieEntity(null, "James Cameron", 1997);
 
         assertThrows(IllegalArgumentException.class, () -> {
@@ -114,7 +114,7 @@ class MovieServiceTest {
 
 
     @Test
-    void UpdateMovieByIdTest() {
+    void updateMovieByIdTest() {
 
         Long movieId = 1L;
         MovieEntity existingMovieEntity = new MovieEntity("Titanik", "James Cameron", 2020);
@@ -135,7 +135,7 @@ class MovieServiceTest {
     }
 
     @Test
-    void UpdateMovieWithNullDataTest() {
+    void updateMovieWithNullDataTest() {
         Long movieId = 1L;
         MovieEntity movieWithNullData = new MovieEntity(null, "Updated Director", 2000);
 
@@ -147,7 +147,7 @@ class MovieServiceTest {
     }
 
     @Test
-    void UpdateMovieWithNegativeYearTest() {
+    void updateMovieWithNegativeYearTest() {
         Long movieId = 1L;
         MovieEntity movieWithNegativeYear = new MovieEntity("Updated Title", "Updated Director", -2000);
 
@@ -160,7 +160,7 @@ class MovieServiceTest {
 
 
     @Test
-    void DeleteMovieByIdTest() {
+    void deleteMovieByIdTest() {
         Long movieId = 1L;
         MovieEntity existingMovieEntity = new MovieEntity("Titanic", "James Cameron", 1997);
 
@@ -175,7 +175,7 @@ class MovieServiceTest {
 
 
     @Test
-    void DeleteAllMoviesTest() {
+    void deleteAllMoviesTest() {
 
         movieService.deleteAllMovies();
         verify(repository, times(1)).deleteAll();

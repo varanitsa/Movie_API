@@ -92,7 +92,7 @@ class MovieControllerTest {
     }
 
     @Test
-    void GetMovieByIdTest() throws Exception {
+    void getMovieByIdTest() throws Exception {
         Movie movie = new Movie("Titanic", "James Cameron", 1997);
         movie.setId(1L);
 
