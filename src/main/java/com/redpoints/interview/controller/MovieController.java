@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -51,6 +52,35 @@ public class MovieController {
         }
     }
 
+    @GetMapping("/title/{title}")
+    public ResponseEntity<Movie> getMovieByTitle(@PathVariable("title") String title) {
+        Optional<MovieEntity> movieEntity = movieService.getMovieByTitle(title);
+
+        if (movieEntity.isPresent()) {
+            Movie movie = movieMapper.entityToModel(movieEntity.get());
+            return new ResponseEntity<>(movie, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Movie>> searchMovies(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String director,
+            @RequestParam(required = false) Integer year
+    ) {
+        List<MovieEntity> movieEntities = movieService.searchMovies(title, director, year);
+
+        if (!movieEntities.isEmpty()) {
+            List<Movie> movies = movieEntities.stream()
+                    .map(movieMapper::entityToModel)
+                    .collect(Collectors.toList());
+            return new ResponseEntity<>(movies, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
 
     @PostMapping
