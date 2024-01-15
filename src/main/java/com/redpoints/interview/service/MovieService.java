@@ -30,8 +30,8 @@ public class MovieService {
             throw new IllegalArgumentException("The fields title, director, and year cannot be null");
         }
 
-        if (movieEntity.getYear() < 0) {
-            throw new IllegalArgumentException("The field year cannot be negative");
+        if (movieEntity.getYear() <= 0) {
+            throw new IllegalArgumentException("The field year cannot be 0 or negative");
         }
 
         return repository.save(movieEntity);
@@ -43,8 +43,8 @@ public class MovieService {
             throw new IllegalArgumentException("The fields title, director, and year cannot be null");
         }
 
-        if (updatedMovieEntity.getYear() < 0) {
-            throw new IllegalArgumentException("The field year cannot be negative");
+        if (updatedMovieEntity.getYear() <= 0) {
+            throw new IllegalArgumentException("The field year cannot be 0 or negative");
         }
 
         return repository.findById(id).map(existingMovieEntity -> {
