@@ -1,19 +1,26 @@
 package com.redpoints.interview.service;
 
+import com.redpoints.interview.mappers.MovieMapper;
+import com.redpoints.interview.model.Movie;
 import com.redpoints.interview.service.data.MovieEntity;
 import com.redpoints.interview.repository.MovieRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MovieService {
 
     private final MovieRepository repository;
 
-    public MovieService(MovieRepository repository) {
+    private final MovieMapper movieMapper;
+
+
+    public MovieService(MovieRepository repository, MovieMapper movieMapper) {
         this.repository = repository;
+        this.movieMapper = movieMapper;
     }
 
     public List<MovieEntity> getAllMovies() {
@@ -23,6 +30,9 @@ public class MovieService {
     public Optional<MovieEntity> getMovieById(Long id) {
         return repository.findById(id);
     }
+
+
+
 
     public MovieEntity createMovie(MovieEntity movieEntity) {
 
@@ -69,6 +79,23 @@ public class MovieService {
         repository.deleteAll();
     }
 
+
+    public Optional<MovieEntity> getMovieByTitle(String title) {
+        if (title == null) {
+            return Optional.empty();
+        }
+        return repository.findByTitleIgnoreCase(title);
+    }
+
+
+    public List<MovieEntity> searchMovies(String title, String director, Integer year) {
+        return repository.findAll().stream()
+                .filter(movie ->
+                        (title == null || movie.getTitle().toLowerCase().contains(title.toLowerCase())) &&
+                                (director == null || movie.getDirector().toLowerCase().contains(director.toLowerCase())) &&
+                                (year == null || movie.getYear().equals(year)))
+                .collect(Collectors.toList());
+    }
 
 }
 

@@ -12,6 +12,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,6 +49,23 @@ class MovieServiceTest {
     }
 
     @Test
+    void searchMovieLowerCaseTest() {
+
+        MovieEntity movie1 = new MovieEntity("Titanic", "James Cameron", 1997);
+        MovieEntity movie2 = new MovieEntity("Aviator", "Martin Scorsese", 2004);
+        MovieEntity movie3 = new MovieEntity("Madagascar", "Tom MgGrath, Eric Darnell", 2005);
+        MovieEntity movie4 = new MovieEntity("Avatar", "James Cameron", 2009);
+        List<MovieEntity> movies = Arrays.asList(movie1, movie2, movie3, movie4);
+
+        when(repository.findAll()).thenReturn(movies);
+
+        List<MovieEntity> result = movieService.searchMovies(null, "james",null);
+
+        assertThat(result).containsExactly(movie1,movie4);
+
+    }
+
+    @Test
     void getMovieByIdTest() {
 
         Long movieId = 1L;
@@ -72,6 +90,34 @@ class MovieServiceTest {
 
         assertThat(result).isEmpty();
     }
+
+    @Test
+    void getMovieByTitleIgnoreCaseTest() {
+
+        String movieTitle = "titanic";
+        MovieEntity movieEntity = new MovieEntity("Titanic", "James Cameron", 1997);
+
+        when(repository.findByTitleIgnoreCase("Titanic")).thenReturn(Optional.of(movieEntity));
+
+        Optional<MovieEntity> result = movieService.getMovieByTitle("Titanic");
+
+        assertThat(result).isNotEmpty();
+        assertThat(result.get()).isEqualTo(movieEntity);
+    }
+
+    @Test
+    void getMovieByTitle_notFoundTest() {
+
+
+        String movieTitle = "Titanic";
+
+        when(repository.findByTitleIgnoreCase(movieTitle)).thenReturn(Optional.empty());
+
+        Optional<MovieEntity> result = movieService.getMovieByTitle(movieTitle);
+
+        assertThat(result).isEmpty();
+    }
+
 
     @Test
     void createMovieTest() {
